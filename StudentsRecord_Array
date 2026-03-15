@@ -1,0 +1,64 @@
+import java.util.Scanner;
+
+public class StudentRecord {
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        String[] names = new String[10];
+        double[] grades = new double[10];
+
+        double sum = 0;
+        for (int i = 0; i < 10; i++) {
+            System.out.print("Enter name of student " + (i + 1) + ": ");
+            names[i] = input.nextLine();
+
+            System.out.print("Enter grade of " + names[i] + ": ");
+            grades[i] = input.nextDouble();
+            input.nextLine(); // clear buffer
+
+            sum += grades[i];
+        }
+        double average = sum / 10;
+        System.out.println("\nAverage Grade: " + average);
+
+        for (int i = 0; i < grades.length - 1; i++) {
+            for (int j = 0; j < grades.length - 1 - i; j++) {
+                if (grades[j] > grades[j + 1]) {
+
+                    // swap grades
+                    double tempGrade = grades[j];
+                    grades[j] = grades[j + 1];
+                    grades[j + 1] = tempGrade;
+
+                    // swap corresponding names
+                    String tempName = names[j];
+                    names[j] = names[j + 1];
+                    names[j + 1] = tempName;
+                }
+            }
+        }
+        System.out.println("\nSorted Student Grades (Ascending):");
+        for (int i = 0; i < 10; i++) {
+            System.out.println(names[i] + " - " + grades[i]);
+        }
+
+        System.out.print("\nEnter student name to search: ");
+        String searchName = input.nextLine();
+        boolean found = false;
+
+        for (int i = 0; i < 10; i++) {
+            if (names[i].equalsIgnoreCase(searchName)) {
+                System.out.println("Student Found: " + names[i] + " - Grade: " + grades[i]);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Student not found.");
+        }
+
+        input.close();
+    }
+}
