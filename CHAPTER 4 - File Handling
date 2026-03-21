@@ -1,0 +1,73 @@
+while True:
+    print("\nStudent Record Menu")
+    print("1. Add Student Record")
+    print("2. View Student Record")
+    print("3. Update Student Record")
+    print("4. Delete Student Record")
+    print("5. Exit Menu")
+
+    choice = input("Enter (1-5): ")
+
+    if choice == "1":
+        name = input("Enter Student name: ")
+        age = input("Enter Student age: ")
+        grade = input("Enter Student grade: ")
+        with open("List.txt", "a") as file:
+            file.write(f"{name}, {age}, {grade}\n")
+        print("Student record added successfully.")
+    elif choice == "2":
+        try:
+            with open("List.txt", "r") as file:
+                records = file.readlines()
+                if records:
+                    print("\nStudent Records: ")
+                    for record in records:
+                        print(record.strip())
+                else:
+                    print("No Records found")
+        except FileNotFoundError:
+            print("No Records found")
+    elif choice == "3":
+        name = input("Enter Student name to update: ")
+        try:
+            with open("List.txt", "r") as file:
+                records = file.readlines()
+            updated_records + []
+            found = False
+            for record in records:
+                if record.startswith(name + ","):
+                    age = input("Enter new age: ")
+                    grade = input("Enter new grade: ")
+                    updated_records.append(f"{name}, {age}, {grade}\n")
+                    found = True
+                else:
+                    updated_records.append(record)
+            if found:
+                with open("List.txt", "w") as file:
+                    file.writelines(updated_records)
+                print("Student record updated successfully")
+            else:
+                print("Student record not found")
+        except FileNotFoundError:
+            print("No Student record found")
+    elif choice == "4":
+        name = input("Enter Student Name to delete")
+        try:
+            with open("List.txt", "r")as file:
+                record = files.readlines()
+            updated_records = [
+                record for record in record if not record.startswith(name + ",")
+            ]
+            if len(updated_records) < len(records):
+                with open("List.txt", "w") as file:
+                    file.writelines(updated_records)
+                print("Student record deleted.")
+            else:
+                print("Student record not found")
+        except FileNotFoundError:
+            print("No student record found")
+    elif choice == "5":
+        print("Exiting Menu")
+        break
+    else:
+        print("Invalid Choice!")
